@@ -85,8 +85,14 @@ function verifyAge(isAdult) {
   }
 
   function toggleMobileMenu() {
+    console.log('Toggle mobile menu called');
     const navlinks = document.getElementById('navlinks');
-    navlinks.classList.toggle('open');
+    if (navlinks) {
+      navlinks.classList.toggle('open');
+      console.log('Navlinks classList:', navlinks.classList);
+    } else {
+      console.log('Navlinks not found');
+    }
   }
 
   // Re-wire tabs on load
@@ -942,9 +948,13 @@ function verifyAge(isAdult) {
     toast('✅ ¡Depósito exitoso! +$'+depAmount.toLocaleString('es-AR')+' via '+pmName);
   }
   // Event listener for hamburger menu
-  document.addEventListener('DOMContentLoaded', function() {
+  window.addEventListener('load', function() {
+    console.log('Window load fired');
     const hamburger = document.querySelector('.hamburger');
     if (hamburger) {
+      console.log('Hamburger found, adding event listener');
       hamburger.addEventListener('click', toggleMobileMenu);
+    } else {
+      console.log('Hamburger not found');
     }
   });
