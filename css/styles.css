@@ -424,7 +424,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
   .hamburger {display: block; background: none; border: none; color: var(--txs); font-size: 20px; cursor: pointer; margin-left: auto;}
   .nav {position:relative;}
   .navlinks {display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: rgba(8, 0, 0, 0.95); padding: 1rem; gap: 0.5rem; z-index: 120; border-bottom: 1px solid rgba(224, 48, 48, 0.2); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45); transition: opacity .25s ease, transform .25s ease; opacity: 0; transform: translateY(-10px);}
-  .navlinks.open {display: flex; opacity: 1; transform: translateY(0);}
+  .navlinks.open {display: flex !important; opacity: 1; transform: translateY(0);}
   .navlinks a {width:100%; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);}
 
   .main {flex-direction: column;}

@@ -154,11 +154,16 @@ function verifyAge(isAdult) {
     toast('🎁 ¡Cuenta creada! +$500 de bono de bienvenida');
   }
 
-  // Navbar buttons
-  document.querySelector('.nav').insertAdjacentHTML('beforeend', `<div style="display:flex;gap:8px;margin-left:10px">
-    <button style="padding:7px 14px;border-radius:7px;background:transparent;border:1px solid var(--bd);color:var(--txs);font-family:Rajdhani,sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--txs)'" onclick="openModal('login')">Iniciar sesión</button>
-    <button style="padding:7px 14px;border-radius:7px;background:var(--gold);border:none;color:#080810;font-family:Rajdhani,sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase" onclick="openModal('register')">Registrarse</button>
-  </div>`);
+  function initNavbarButtons(){
+    const nav=document.querySelector('.nav');
+    if(!nav) return;
+    nav.insertAdjacentHTML('beforeend', `<div style="display:flex;gap:8px;margin-left:10px">
+      <button style="padding:7px 14px;border-radius:7px;background:transparent;border:1px solid var(--bd);color:var(--txs);font-family:Rajdhani,sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--txs)'" onclick="openModal('login')">Iniciar sesión</button>
+      <button style="padding:7px 14px;border-radius:7px;background:var(--gold);border:none;color:#080810;font-family:Rajdhani,sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer;text-transform:uppercase" onclick="openModal('register')">Registrarse</button>
+    </div>`);
+  }
+
+  document.addEventListener('DOMContentLoaded', initNavbarButtons);
 
   // =============================================
   // SLOTS
@@ -954,6 +959,7 @@ function verifyAge(isAdult) {
     if (hamburger) {
       console.log('Hamburger found, adding event listener');
       hamburger.addEventListener('click', toggleMobileMenu);
+      hamburger.addEventListener('touchstart', toggleMobileMenu, {passive:true});
     } else {
       console.log('Hamburger not found');
     }
