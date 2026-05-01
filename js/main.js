@@ -5,18 +5,21 @@ function verifyAge(isAdult) {
   const countdownEl = document.getElementById('countdown');
 
   if (isAdult) {
+    localStorage.setItem('ageVerified', 'true');
     // Si es mayor, ocultamos el modal y dejamos ver el welcomeOverlay
-    overlay.style.animation = 'fadeOutOverlay 0.5s ease forwards';
-    setTimeout(() => overlay.style.display = 'none', 550);
+    if (overlay) {
+      overlay.style.animation = 'fadeOutOverlay 0.5s ease forwards';
+      setTimeout(() => overlay.style.display = 'none', 550);
+    }
   } else {
     // Si es menor, mostramos advertencia y cerramos
-    buttons.style.display = 'none';
-    notice.style.display = 'block';
+    if (buttons) buttons.style.display = 'none';
+    if (notice) notice.style.display = 'block';
     
     let timeLeft = 5;
     const timer = setInterval(() => {
       timeLeft--;
-      countdownEl.textContent = timeLeft;
+      if (countdownEl) countdownEl.textContent = timeLeft;
       
       if (timeLeft <= 0) {
         clearInterval(timer);
@@ -28,6 +31,17 @@ function verifyAge(isAdult) {
     }, 1000);
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('ageVerified') === 'true') {
+    const overlay = document.getElementById('ageVerificationOverlay');
+    if (overlay) overlay.style.display = 'none';
+  }
+  if (localStorage.getItem('casinoEntered') === 'true') {
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    if (welcomeOverlay) welcomeOverlay.style.display = 'none';
+  }
+});
  // =============================================
   // GLOBAL
   // =============================================
@@ -815,6 +829,7 @@ function verifyAge(isAdult) {
 
   // Welcome close
   function closeWelcome(){
+    localStorage.setItem('casinoEntered', 'true');
     const ov=document.getElementById('welcomeOverlay');
     if(ov){ov.style.animation='fadeOutOverlay .5s ease forwards';setTimeout(()=>ov.style.display='none',550);}
   }
