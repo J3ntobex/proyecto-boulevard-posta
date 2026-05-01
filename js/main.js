@@ -941,3 +941,10 @@ function verifyAge(isAdult) {
     }
     toast('✅ ¡Depósito exitoso! +$'+depAmount.toLocaleString('es-AR')+' via '+pmName);
   }
+  // Event listener for hamburger menu
+  document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    if (hamburger) {
+      hamburger.addEventListener('click', toggleMobileMenu);
+    }
+  });
