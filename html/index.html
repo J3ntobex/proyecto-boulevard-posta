@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casino Bulevard</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src="../js/main.js"></script>
+</head>
+<body>
+  <!-- MODAL DE MAYORÍA DE EDAD -->
+  <div id="ageVerificationOverlay" class="age-overlay">
+    <div class="age-modal">
+      <div class="wlc-crown">♛</div>
+      <div class="age-title">Verificación de Edad</div>
+      <div class="age-msg">Para ingresar al Casino Bulevard, debes confirmar que eres mayor de 18 años.</div>
+      
+      <div class="age-btns">
+        <button class="age-btn-yes" onclick="verifyAge(true)">Sí, soy mayor de edad</button>
+        <button class="age-btn-no" onclick="verifyAge(false)">No, no soy mayor de edad</button>
+      </div>
+      
+      <div id="underageNotice" class="underage-notice">
+        <div class="age-warning-icon">⚠️</div>
+        <div class="age-warning-title">ACCESO DENEGADO</div>
+        <p>Lo sentimos, este sitio es exclusivo para mayores de 18 años.</p>
+        <p>La página se cerrará en <span id="countdown">5</span> segundos.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIENVENIDA -->
+  <div id="welcomeOverlay">
+    <!-- floating cards -->
+    <div class="wlc-card-float" style="left:5%;animation-duration:8s;animation-delay:0s">♠</div>
+    <div class="wlc-card-float" style="left:15%;animation-duration:11s;animation-delay:-3s;font-size:20px">♥</div>
+    <div class="wlc-card-float" style="left:28%;animation-duration:9s;animation-delay:-6s">♦</div>
+    <div class="wlc-card-float" style="left:42%;animation-duration:13s;animation-delay:-1s;font-size:22px">♣</div>
+    <div class="wlc-card-float" style="left:58%;animation-duration:10s;animation-delay:-4s">🂡</div>
+    <div class="wlc-card-float" style="left:72%;animation-duration:8.5s;animation-delay:-7s">♠</div>
+    <div class="wlc-card-float" style="left:85%;animation-duration:12s;animation-delay:-2s">♥</div>
+    <div class="wlc-card-float" style="left:93%;animation-duration:9.5s;animation-delay:-5s;font-size:22px">♦</div>
+    <div class="wlc-inner">
+      <div class="wlc-crown">♛</div>
+      <div class="wlc-logo">Casino Bulevard</div>
+      <div class="wlc-logo-sub">Est. · Salta · Argentina</div>
+      <div class="wlc-divider"><span></span><i>♦</i><span></span></div>
+      <div class="wlc-msg">¡Bienvenido al Casino Bulevard!</div>
+      <div class="wlc-tagline">Que la suerte te acompañe esta noche</div>
+      <div class="wlc-chips">
+        <div class="wlc-chip">♠</div>
+        <div class="wlc-chip">♥</div>
+        <div class="wlc-chip">🎲</div>
+        <div class="wlc-chip">♦</div>
+        <div class="wlc-chip">♣</div>
+      </div>
+      <button class="wlc-enter-btn" onclick="closeWelcome()">Ingresar al Casino</button>
+      <div class="wlc-18">Solo mayores de 18 años · Jugá con responsabilidad</div>
+    </div>
+  </div>
+
+  <div class="page">
+
+  <!-- BARRA SOCIAL SUPERIOR -->
+  <div class="topbar-social">
+    <div class="topbar-social-links">
+      <a class="topbar-slink ig" href="https://www.instagram.com/casinoboulevardsalta/" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>@casinoboulevardsalta</span>
+      </a>
+      <a class="topbar-slink fb" href="https://www.facebook.com/cainoboulevard/" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <span>Casino Boulevard Salta</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="logo" onclick="go('slots')">Casino <span>Bulevard</span></div>
+    <div class="navlinks">
+      <a id="nSlots" class="on" onclick="go('slots')" href="juegos.html">Slots</a>
+      <a id="nRoul" onclick="go('roulette')">Ruleta</a>
+      <a id="nBJ" onclick="go('blackjack')">Blackjack</a>
+      <a id="nPok" onclick="go('poker')">Póker</a>
+      <a id="nDice" onclick="go('dice')">Dados</a>
+      <a id="nBacc" onclick="go('baccarat')">Baccarat</a>
+      <a id="nGastro" onclick="go('gastro')">Gastronomía</a>
+    </div>
+    <div class="navcr">💰 $<span id="gcr">1,000</span></div>
+  </nav>
+    <!-- BARRA DE DEPÓSITO RÁPIDO -->
+  <div class="deposit-bar">
+    <span class="deposit-bar-label">⚡ Cargar <span>Créditos</span></span>
+    <div class="dep-amounts">
+      <button class="dep-btn" onclick="openDepModal(3000)">$3.000</button>
+      <button class="dep-btn featured" onclick="openDepModal(5000)">$5.000</button>
+      <button class="dep-btn" onclick="openDepModal(10000)">$10.000</button>
+      <button class="dep-btn" onclick="openDepModal(20000)">$20.000</button>
+      <button class="dep-btn" onclick="openDepModal(50000)">$50.000</button>
+    </div>
+    <div class="dep-sep"></div>
+    <button class="dep-custom-btn" onclick="openDepModal(null)">Otro monto →</button>
+  </div>
+
+  <!-- MODAL DE DEPÓSITO -->
+  <div class="dep-overlay" id="depOverlay" onclick="closeDep(event)">
+    <div class="dep-modal" id="depModal">
+      <div class="dep-modal-header">
+        <button class="dep-modal-close" onclick="closeDepModal()">✕</button>
+        <div class="dep-modal-icon">💳</div>
+        <div class="dep-modal-title">Cargar Créditos</div>
+        <div class="dep-modal-sub">Depósito seguro · Acreditación instantánea</div>
+      </div>
+      <div class="dep-modal-body">
+        <div class="dep-amount-label">Monto a cargar</div>
+        <div class="dep-quick-amounts">
+          <div class="dep-qa" onclick="setDepAmount(3000)">$3.000</div>
+          <div class="dep-qa" onclick="setDepAmount(5000)">$5.000</div>
+          <div class="dep-qa" onclick="setDepAmount(10000)">$10.000</div>
+          <div class="dep-qa" onclick="setDepAmount(20000)">$20.000</div>
+          <div class="dep-qa" onclick="setDepAmount(50000)">$50.000</div>
+        </div>
+        <div class="dep-input-wrap">
+          <span class="dep-input-prefix">$</span>
+          <input class="dep-amount-input" id="depAmountInput" type="number" placeholder="0" min="3000" oninput="onDepInput()">
+        </div>
+        <div class="dep-min-note">Monto mínimo: <span>$3.000</span></div>
+
+        <div class="dep-divider">
+          <div class="dep-divider-line"></div>
+          <div class="dep-divider-text">Método de pago</div>
+          <div class="dep-divider-line"></div>
+        </div>
+
+        <div class="dep-section-title">Billeteras y apps</div>
+        <div class="dep-payment-grid">
+          <div class="dep-payment-method" id="pm-naranjax" onclick="selectPM('naranjax')">
+            <div class="dep-pm-logo naranjax">🟠</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">NaranjaX</div><div class="dep-pm-type">Billetera digital</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-naranjax">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-naranjax" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-naranjax">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-naranjax" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-naranjax">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-naranjax" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-naranjax">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-naranjax" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-naranjax">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-naranjax" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-naranjax">CVV inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-naranjax" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-naranjax">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-naranjax" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-naranjax">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-naranjax" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-naranjax">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-naranjax" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-naranjax">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-mercadopago" onclick="selectPM('mercadopago')">
+            <div class="dep-pm-logo mercadopago">💙</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Mercado Pago</div><div class="dep-pm-type">Billetera digital</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-mercadopago">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-mercadopago" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-mercadopago">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-mercadopago" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-mercadopago">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-mercadopago" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-mercadopago">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-mercadopago" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-mercadopago">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-mercadopago" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-mercadopago">CVV inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-mercadopago" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-mercadopago">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-mercadopago" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-mercadopago">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-mercadopago" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-mercadopago">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-mercadopago" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-mercadopago">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-personal-pay" onclick="selectPM('personal-pay')">
+            <div class="dep-pm-logo personal-pay">📱</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Personal Pay</div><div class="dep-pm-type">Billetera digital</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-personal-pay">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-personal-pay" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-personal-pay">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-personal-pay" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-personal-pay">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-personal-pay" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-personal-pay">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-personal-pay" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-personal-pay">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-personal-pay" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-personal-pay">CVV inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-personal-pay" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-personal-pay">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-personal-pay" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-personal-pay">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-personal-pay" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-personal-pay">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-personal-pay" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-personal-pay">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-brubank" onclick="selectPM('brubank')">
+            <div class="dep-pm-logo brubank">🟣</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Brubank</div><div class="dep-pm-type">Banco digital</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-brubank">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-brubank" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-brubank">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-brubank" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-brubank">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-brubank" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-brubank">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-brubank" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-brubank">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-brubank" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-brubank">CVV inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-brubank" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-brubank">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-brubank" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-brubank">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-brubank" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-brubank">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-brubank" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-brubank">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-ualá" onclick="selectPM('ualá')">
+            <div class="dep-pm-logo ualá">❤️</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Ualá</div><div class="dep-pm-type">Billetera digital</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-ualá">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-ualá" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-ualá">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-ualá" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-ualá">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-ualá" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-ualá">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-ualá" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-ualá">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-ualá" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-ualá">CVV inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-ualá" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-ualá">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-ualá" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-ualá">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-ualá" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-ualá">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-ualá" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-ualá">CP inválido</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dep-section-title">Bancos</div>
+        <div class="dep-payment-grid">
+          <div class="dep-payment-method" id="pm-galicia" onclick="selectPM('galicia')">
+            <div class="dep-pm-logo galicia">🔴</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Banco Galicia</div><div class="dep-pm-type">Transferencia / Home banking</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-galicia">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-galicia" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-galicia">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-galicia" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-galicia">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-galicia" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-galicia">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-galicia" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-galicia">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-galicia" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-galicia">CVV inválido</span>
+              </div>
+            </div>
+                <div class="dep-field">
+                  <label class="dep-field-label">Cuotas</label>
+                  <select class="dep-field-input" id="f-cuotas-galicia">
+                    <option value="1">1 cuota (sin interés)</option>
+                    <option value="3">3 cuotas</option>
+                    <option value="6">6 cuotas</option>
+                    <option value="12">12 cuotas</option>
+                    <option value="18">18 cuotas</option>
+                  </select>
+                </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-galicia" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-galicia">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-galicia" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-galicia">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-galicia" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-galicia">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-galicia" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-galicia">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-macro" onclick="selectPM('macro')">
+            <div class="dep-pm-logo macro">🟢</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Banco Macro</div><div class="dep-pm-type">Transferencia / Home banking</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-macro">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-macro" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-macro">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-macro" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-macro">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-macro" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-macro">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-macro" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-macro">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-macro" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-macro">CVV inválido</span>
+              </div>
+            </div>
+                <div class="dep-field">
+                  <label class="dep-field-label">Cuotas</label>
+                  <select class="dep-field-input" id="f-cuotas-macro">
+                    <option value="1">1 cuota (sin interés)</option>
+                    <option value="3">3 cuotas</option>
+                    <option value="6">6 cuotas</option>
+                    <option value="12">12 cuotas</option>
+                    <option value="18">18 cuotas</option>
+                  </select>
+                </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-macro" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-macro">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-macro" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-macro">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-macro" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-macro">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-macro" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-macro">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-bna" onclick="selectPM('bna')">
+            <div class="dep-pm-logo bna">🔵</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Banco Nación</div><div class="dep-pm-type">Transferencia / Home banking</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-bna">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-bna" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-bna">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-bna" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-bna">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-bna" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-bna">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-bna" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-bna">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-bna" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-bna">CVV inválido</span>
+              </div>
+            </div>
+                <div class="dep-field">
+                  <label class="dep-field-label">Cuotas</label>
+                  <select class="dep-field-input" id="f-cuotas-bna">
+                    <option value="1">1 cuota (sin interés)</option>
+                    <option value="3">3 cuotas</option>
+                    <option value="6">6 cuotas</option>
+                    <option value="12">12 cuotas</option>
+                    <option value="18">18 cuotas</option>
+                  </select>
+                </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-bna" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-bna">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-bna" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-bna">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-bna" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-bna">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-bna" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-bna">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-bbva" onclick="selectPM('bbva')">
+            <div class="dep-pm-logo bbva">🔷</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">BBVA Argentina</div><div class="dep-pm-type">Transferencia / Home banking</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-bbva">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-bbva" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-bbva">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-bbva" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-bbva">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-bbva" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-bbva">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-bbva" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-bbva">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-bbva" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-bbva">CVV inválido</span>
+              </div>
+            </div>
+                <div class="dep-field">
+                  <label class="dep-field-label">Cuotas</label>
+                  <select class="dep-field-input" id="f-cuotas-bbva">
+                    <option value="1">1 cuota (sin interés)</option>
+                    <option value="3">3 cuotas</option>
+                    <option value="6">6 cuotas</option>
+                    <option value="12">12 cuotas</option>
+                    <option value="18">18 cuotas</option>
+                  </select>
+                </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-bbva" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-bbva">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-bbva" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-bbva">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-bbva" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-bbva">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-bbva" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-bbva">CP inválido</span>
+              </div>
+            </div>
+          </div>
+          <div class="dep-payment-method" id="pm-santander" onclick="selectPM('santander')">
+            <div class="dep-pm-logo santander">🔴</div>
+            <div class="dep-pm-info"><div class="dep-pm-name">Santander</div><div class="dep-pm-type">Transferencia / Home banking</div></div>
+          </div>
+          <div class="dep-pm-form" id="form-santander">
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Número de tarjeta</label>
+                <input class="dep-field-input" id="f-card-santander" type="text" maxlength="19" placeholder="0000 0000 0000 0000" oninput="fmtCard(this)">
+                <span class="dep-field-error" id="err-card-santander">Ingresá los 16 dígitos</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">DNI del titular</label>
+                <input class="dep-field-input" id="f-dni-santander" type="text" maxlength="8" placeholder="00000000">
+                <span class="dep-field-error" id="err-dni-santander">DNI inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Nombre del titular (como figura en la tarjeta)</label>
+                <input class="dep-field-input" id="f-name-santander" type="text" placeholder="NOMBRE APELLIDO">
+                <span class="dep-field-error" id="err-name-santander">Ingresá el nombre</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Vencimiento (MM/AA)</label>
+                <input class="dep-field-input" id="f-exp-santander" type="text" maxlength="5" placeholder="MM/AA" oninput="fmtExp(this)">
+                <span class="dep-field-error" id="err-exp-santander">Fecha inválida</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">CVV</label>
+                <input class="dep-field-input" id="f-cvv-santander" type="text" maxlength="3" placeholder="•••">
+                <span class="dep-field-error" id="err-cvv-santander">CVV inválido</span>
+              </div>
+            </div>
+                <div class="dep-field">
+                  <label class="dep-field-label">Cuotas</label>
+                  <select class="dep-field-input" id="f-cuotas-santander">
+                    <option value="1">1 cuota (sin interés)</option>
+                    <option value="3">3 cuotas</option>
+                    <option value="6">6 cuotas</option>
+                    <option value="12">12 cuotas</option>
+                    <option value="18">18 cuotas</option>
+                  </select>
+                </div>
+            <div class="dep-form-sep"></div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Email</label>
+                <input class="dep-field-input" id="f-email-santander" type="email" placeholder="correo@ejemplo.com">
+                <span class="dep-field-error" id="err-email-santander">Email inválido</span>
+              </div>
+              <div class="dep-field">
+                <label class="dep-field-label">Teléfono</label>
+                <input class="dep-field-input" id="f-phone-santander" type="text" maxlength="15" placeholder="+54 9 387 000 0000">
+                <span class="dep-field-error" id="err-phone-santander">Teléfono inválido</span>
+              </div>
+            </div>
+            <div class="dep-form-grid full">
+              <div class="dep-field">
+                <label class="dep-field-label">Dirección de facturación</label>
+                <input class="dep-field-input" id="f-addr-santander" type="text" placeholder="Calle, número, ciudad">
+                <span class="dep-field-error" id="err-addr-santander">Ingresá la dirección</span>
+              </div>
+            </div>
+            <div class="dep-form-grid">
+              <div class="dep-field">
+                <label class="dep-field-label">Código postal</label>
+                <input class="dep-field-input" id="f-cp-santander" type="text" maxlength="8" placeholder="A4400">
+                <span class="dep-field-error" id="err-cp-santander">CP inválido</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="dep-confirm-btn" id="depConfirmBtn" onclick="confirmDeposit()" disabled>Confirmar Depósito</button>
+        <div class="dep-secure-note">🔒 Transacción segura · SSL encriptado</div>
+      </div>
+    </div>
+  </div>
+  <!-- JACKPOT TICKER -->
+  <div class="jp-ticker">
+    <div class="jp-ticker-track" id="tickerTrack">
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎰 Grand Jackpot</span><span class="jp-ticker-val" id="tk1">$50,000</span><span class="jp-ticker-game"> · Slots Classic</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">👑 Ganador</span><span class="jp-ticker-val">Carlos M.</span><span class="jp-ticker-game"> ganó $8,400 en Ruleta</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎡 Major</span><span class="jp-ticker-val" id="tk2">$10,000</span><span class="jp-ticker-game"> · Baccarat</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🔥 Hot Streak</span><span class="jp-ticker-val">Sofía R.</span><span class="jp-ticker-game"> — 7 manos seguidas en Blackjack</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎲 Minor</span><span class="jp-ticker-val" id="tk3">$1,000</span><span class="jp-ticker-game"> · Dados</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">♠ Torneo</span><span class="jp-ticker-val">ESTA NOCHE</span><span class="jp-ticker-game"> — Inscribite ahora</span></div>
+      <!-- duplicado para loop continuo -->
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎰 Grand Jackpot</span><span class="jp-ticker-val">$50,000</span><span class="jp-ticker-game"> · Slots Classic</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">👑 Ganador</span><span class="jp-ticker-val">Carlos M.</span><span class="jp-ticker-game"> ganó $8,400 en Ruleta</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎡 Major</span><span class="jp-ticker-val">$10,000</span><span class="jp-ticker-game"> · Baccarat</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🔥 Hot Streak</span><span class="jp-ticker-val">Sofía R.</span><span class="jp-ticker-game"> — 7 manos seguidas en Blackjack</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎲 Minor</span><span class="jp-ticker-val">$1,000</span><span class="jp-ticker-game"> · Dados</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">♠ Torneo</span><span class="jp-ticker-val">ESTA NOCHE</span><span class="jp-ticker-game"> — Inscribite ahora</span></div>
+    </div>
+  </div>
+  

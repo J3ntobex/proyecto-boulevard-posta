@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casino Boulevard - Juegos</title>
+  <!-- Asegúrate de que esta ruta a tu CSS sea correcta según tus carpetas -->
+  <link rel="stylesheet" href="../css/styles.css"> 
+</head>
+<body>
+  
+  <!-- HEADER FIJO -->
+  <header class="site-header">
+    <div class="topbar-social">
+      <div class="topbar-social-links">
+        <a class="topbar-slink ig" href="https://www.instagram.com/casinoboulevardsalta/" target="_blank"><span>@casinoboulevardsalta</span></a>
+        <a class="topbar-slink fb" href="https://www.facebook.com/cainoboulevard/" target="_blank"><span>Casino Boulevard Salta</span></a>
+      </div>
+    </div>
+    <nav class="nav">
+      <div class="logo"><a href="index.html" style="color:inherit; text-decoration:none;">Casino <span>Bulevard</span></a></div>
+      <div class="navlinks">
+        <a href="index.html">Inicio</a>
+        <a href="juegos.html" class="on">Juegos</a>
+        <a href="contacto.html">Contáctenos</a>
+      </div>
+      <div class="navcr">💰 $<span id="gcr">1,000</span></div>
+    </nav>
+  </header>
+
+  <!-- JACKPOT TICKER -->
+  <div class="jp-ticker">
+    <div class="jp-ticker-track" id="tickerTrack">
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎰 Grand Jackpot</span><span class="jp-ticker-val" id="tk1">$50,000</span><span class="jp-ticker-game"> · Slots Classic</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">👑 Ganador</span><span class="jp-ticker-val">Carlos M.</span><span class="jp-ticker-game"> ganó $8,400 en Ruleta</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎡 Major</span><span class="jp-ticker-val" id="tk2">$10,000</span><span class="jp-ticker-game"> · Baccarat</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🔥 Hot Streak</span><span class="jp-ticker-val">Sofía R.</span><span class="jp-ticker-game"> — 7 manos seguidas en Blackjack</span></div>
+      <!-- duplicado para loop -->
+      <div class="jp-ticker-item"><span class="jp-ticker-label">🎰 Grand Jackpot</span><span class="jp-ticker-val">$50,000</span><span class="jp-ticker-game"> · Slots Classic</span></div>
+      <div class="jp-ticker-item"><span class="jp-ticker-label">👑 Ganador</span><span class="jp-ticker-val">Carlos M.</span><span class="jp-ticker-game"> ganó $8,400 en Ruleta</span></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- PANEL IZQUIERDO (Estadísticas de Sesión) -->
+    <aside class="sidebar">
+      <div class="stitle">Sesión Actual</div>
+      <div class="srow"><span class="sl">Jugadas</span><span class="sv" id="sPlays">0</span></div>
+      <div class="srow"><span class="sl">Mejor win</span><span class="sv" id="sBest">$0</span></div>
+      <div class="srow"><span class="sl">Online</span><span class="sv">247</span></div>
+    </aside>
+
+    <!-- ÁREA CENTRAL DE JUEGOS -->
+    <div class="area">
+
+      <!-- ========================================== -->
+      <!-- PANTALLA 1: EL LOBBY (MENÚ DE CUADRADOS) -->
+      <!-- ========================================== -->
+      <!-- Nota el "on" aquí. Esto hace que cargue primero -->
+      <div class="screen on" id="sc-lobby">
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--bd); padding-bottom: 15px; margin-bottom: 10px;">
+          <h1 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 28px; margin: 0;">Casino en Vivo</h1>
+          <span style="color: var(--txm); font-size: 14px;">Elige tu juego</span>
+        </div>
+
+        <div class="games-grid">
+          <!-- CARTA SLOTS -->
+          <div class="game-card-wrapper">
+            <div class="game-card gc-slots" onclick="go('slots')">
+              <img src="../imagenes/slots.png" alt="Slots Classic">
+              <div class="game-card-title">SLOTS<br>CLASSIC</div>
+              <div class="game-card-provider">BOULEVARD GAMING</div>
+            </div>
+            <div class="game-live-stats"><span class="live-dot"></span> 313 jugando</div>
+          </div>
+          
+          <!-- CARTA RULETA -->
+          <div class="game-card-wrapper">
+            <div class="game-card gc-roulette" onclick="go('roulette')">
+              <div class="game-card-title">RULETA<br>EUROPEA</div>
+              <div class="game-card-provider">BOULEVARD GAMING</div>
+              <img src="../imagenes/ruletaeuropea.png" alt="Ruleta Europea">
+            </div>
+            <div class="game-live-stats"><span class="live-dot"></span> 142 jugando</div>
+          </div>
+
+          <!-- CARTA BLACKJACK -->
+          <div class="game-card-wrapper">
+            <div class="game-card gc-blackjack" onclick="go('blackjack')">
+              <div class="game-card-title">BLACKJACK<br>PRO</div>
+              <div class="game-card-provider">BULEVARD GAMING</div>
+              <img src="../imagenes/Blackjackpro.png" alt="Blackjack Pro">
+            </div>
+            <div class="game-live-stats"><span class="live-dot"></span> 89 jugando</div>
+          </div>
+
+          <!-- CARTA PÓKER -->
+          <div class="game-card-wrapper">
+            <div class="game-card gc-poker" onclick="go('poker')">
+              <div class="game-card-title">VIDEO<br>PÓKER</div>
+              <div class="game-card-provider">BULEVARD GAMING</div>
+              <img src="../imagenes/Poker.png" alt=" Video Póker">
+            </div>
+            <div class="game-live-stats"><span class="live-dot"></span> 205 jugando</div>
+          </div>
+
+          <!-- CARTA DADOS -->
+          <div class="game-card-wrapper">
+            <div class="game-card gc-dice" onclick="go('dice')">
+              <div class="game-card-title">DADOS<br>CLÁSICOS</div>
+              <div class="game-card-provider">BULEVARD GAMING</div>
+              <img src="../imagenes/Dados.png" alt="Dados Clásicos">
+            </div>
+            <div class="game-live-stats"><span class="live-dot"></span> 56 jugando</div>
+          </div>
+
+          <!-- CARTA BACCARAT -->
+          <div class="game-card-wrapper">
+            <div class="game-card gc-baccarat" onclick="go('baccarat')">
+              <div class="game-card-title">BACCARAT<br>VIP</div>
+              <div class="game-card-provider">BULEVARD GAMING</div>
+              <img src="../imagenes/Baccarat.png" alt="Baccarat VIP">S
+            </div>
+            <div class="game-live-stats"><span class="live-dot"></span> 34 jugando</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- PANTALLA 2: SLOTS -->
+      <!-- ========================================== -->
+      <!-- Nota que NO tiene la clase "on" -->
+      <div class="screen" id="sc-slots">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 10px;">
+          <button class="btn-back-lobby" onclick="go('lobby')">← Volver al Menú</button>
+        </div>
+        <div class="card-box">
+          <div class="chead">
+            <div class="lights"><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div></div>
+            <div class="ctitle">SLOTS CLASSIC</div>
+            <div class="csub">3 carretes · hasta 20 líneas</div>
+          </div>
+          <div class="jpbar">
+            <div class="jpc gr"><div class="jpl">Grand</div><div class="jpa" id="jpG">$50,000</div></div>
+            <div class="jpc mj"><div class="jpl">Major</div><div class="jpa" id="jpM">$10,000</div></div>
+            <div class="jpc mn"><div class="jpl">Minor</div><div class="jpa" id="jpN">$1,000</div></div>
+            <div class="jpc mi"><div class="jpl">Mini</div><div class="jpa" id="jpMi">$100</div></div>
+          </div>
+          <div class="reelwrap">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+              <span style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--txm)">Líneas activas</span>
+              <div class="pdots" id="pdots"></div>
+            </div>
+            <div class="reelframe" style="position:relative">
+              <div class="winline"></div>
+              <div class="reelrow" id="reelrow"></div>
+            </div>
+          </div>
+          <div class="infobar">
+            <div class="ic"><div class="il">Créditos</div><div class="iv" id="slotsCredits">1,000</div></div>
+            <div class="ic"><div class="il">Apuesta total</div><div class="iv w" id="totalBet">50</div></div>
+            <div class="ic"><div class="il">Último premio</div><div class="iv g" id="lastWin">0</div></div>
+          </div>
+          <div class="ctrls">
+            <div class="betrow">
+              <div class="betsec">
+                <div class="bslabel">Apuesta por línea</div>
+                <div class="stepper">
+                  <button class="stpbtn" id="sbd">−</button>
+                  <span class="stpval" id="sbv">10</span>
+                  <button class="stpbtn" id="sbu">+</button>
+                </div>
+              </div>
+              <div class="betsec">
+                <div class="bslabel">Líneas</div>
+                <div class="linesrow" id="linesrow">
+                  <button class="lbtn" data-l="1">1</button>
+                  <button class="lbtn" data-l="3">3</button>
+                  <button class="lbtn on" data-l="5">5</button>
+                  <button class="lbtn" data-l="10">10</button>
+                  <button class="lbtn" data-l="20">20</button>
+                </div>
+              </div>
+            </div>
+            <div class="actrow">
+              <button class="abtn auto" id="autoBtn">🔁 Auto</button>
+              <button class="abtn spin" id="spinBtn">🎰 GIRAR</button>
+              <button class="abtn max" id="maxBtn">⚡ Máx.</button>
+            </div>
+          </div>
+          <div class="msgwrap"><div class="msg" id="msgbox">¡Buena suerte! Presioná GIRAR para empezar</div></div>
+        </div>
+        <div class="ptp">
+          <div class="pth" onclick="togglePT()">
+            <span class="pthttl">Tabla de pagos</span><span class="ptarr op" id="ptarr">▲</span>
+          </div>
+          <div class="ptbody" id="ptbody"><div class="ptgrid" id="ptgrid"></div></div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- PANTALLA 3: RULETA -->
+      <!-- ========================================== -->
+      <div class="screen" id="sc-roulette">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 10px;">
+          <button class="btn-back-lobby" onclick="go('lobby')">← Volver al Menú</button>
+        </div>
+        <div class="card-box roulwrap">
+          <div class="chead">
+            <div class="lights"><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div></div>
+            <div class="ctitle">RULETA EUROPEA</div>
+            <div class="csub">0 al 36 · Single Zero</div>
+          </div>
+          <div class="roul-canvas-area">
+            <canvas id="roulCanvas" width="210" height="210"></canvas>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txm)">Último número</div>
+              <div class="roulball" id="roulBall">?</div>
+              <div class="roulcolor" id="roulColor">—</div>
+            </div>
+          </div>
+          <div class="roulbets">
+            <div class="roul-section-title">Números directos (pago 35:1)</div>
+            <div class="numgrid" id="numgrid"></div>
+            <div class="roul-section-title">Apuestas externas</div>
+            <div class="outside-bets">
+              <button class="ob-btn" id="ob-red" onclick="toggleOB('red',this)">🔴 Rojo (1:1)</button>
+              <button class="ob-btn" id="ob-black" onclick="toggleOB('black',this)">⚫ Negro (1:1)</button>
+              <button class="ob-btn" id="ob-even" onclick="toggleOB('even',this)">Par (1:1)</button>
+              <button class="ob-btn" id="ob-odd" onclick="toggleOB('odd',this)">Impar (1:1)</button>
+              <button class="ob-btn" id="ob-low" onclick="toggleOB('low',this)">Bajo 1–18 (1:1)</button>
+              <button class="ob-btn" id="ob-high" onclick="toggleOB('high',this)">Alto 19–36 (1:1)</button>
+              <button class="ob-btn" id="ob-1to12" onclick="toggleOB('1to12',this)">1ª Docena (2:1)</button>
+              <button class="ob-btn" id="ob-13to24" onclick="toggleOB('13to24',this)">2ª Docena (2:1)</button>
+              <button class="ob-btn" id="ob-25to36" onclick="toggleOB('25to36',this)">3ª Docena (2:1)</button>
+              <button class="ob-btn" id="ob-zero" onclick="toggleOB('zero',this)">🟢 Cero (35:1)</button>
+            </div>
+            <div class="roul-action">
+              <div>
+                <div class="bslabel">Apuesta por selección</div>
+                <div class="stepper">
+                  <button class="stpbtn" onclick="adjRB(-1)">−</button>
+                  <span class="stpval" id="rbv">$10</span>
+                  <button class="stpbtn" onclick="adjRB(1)">+</button>
+                </div>
+              </div>
+              <button class="btn btn-out" onclick="clearRoulBets()">Limpiar</button>
+              <button class="btn btn-gold" id="roulSpinBtn" onclick="roulSpin()" style="flex:1">🎡 GIRAR</button>
+            </div>
+            <div class="roul-sel-list" id="roulSelList">Sin apuestas seleccionadas</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- PANTALLA 4: BLACKJACK -->
+      <!-- ========================================== -->
+      <div class="screen" id="sc-blackjack">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 10px;">
+          <button class="btn-back-lobby" onclick="go('lobby')">← Volver al Menú</button>
+        </div>
+        <div class="card-box">
+          <div class="chead">
+            <div class="lights"><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div></div>
+            <div class="ctitle">BLACKJACK PRO</div>
+            <div class="csub">Dealer se planta en soft 17</div>
+          </div>
+          <div class="bjtable">
+            <div>
+              <div class="bjlabel">Dealer <span id="bjDS"></span></div>
+              <div class="bjcards" id="bjDC"></div>
+            </div>
+            <div class="bjdiv"></div>
+            <div class="bjstatus" id="bjST">Hacé tu apuesta y repartí</div>
+            <div class="bjdiv"></div>
+            <div>
+              <div class="bjlabel">Tu mano <span id="bjPS"></span></div>
+              <div class="bjcards" id="bjPC"></div>
+            </div>
+          </div>
+          <div class="bjctrl">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div>
+                <div class="bslabel">Apuesta</div>
+                <div class="stepper">
+                  <button class="stpbtn" onclick="adjBJ(-1)">−</button>
+                  <span class="stpval" id="bjBet">$10</span>
+                  <button class="stpbtn" onclick="adjBJ(1)">+</button>
+                </div>
+              </div>
+              <button class="btn btn-gold" id="bjDealBtn" onclick="bjDeal()">🃏 REPARTIR</button>
+            </div>
+            <div class="bjbtns">
+              <button class="btn btn-gold" id="bjHit" onclick="bjHit()" disabled>Pedir carta</button>
+              <button class="btn btn-red" id="bjStand" onclick="bjStand()" disabled>Plantarse</button>
+              <button class="btn btn-out" id="bjDouble" onclick="bjDouble()" disabled>Doblar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- PANTALLA 5: VIDEO PÓKER -->
+      <!-- ========================================== -->
+      <div class="screen" id="sc-poker">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 10px;">
+          <button class="btn-back-lobby" onclick="go('lobby')">← Volver al Menú</button>
+        </div>
+        <div class="card-box">
+          <div class="chead">
+            <div class="lights"><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div></div>
+            <div class="ctitle">VIDEO PÓKER</div>
+            <div class="csub">Jacks or Better · 5 cartas</div>
+          </div>
+          <div class="pktable">
+            <div class="pkphase" id="pkPhase">Hacé tu apuesta y repartí</div>
+            <div class="pkcards" id="pkCards"></div>
+            <div class="pkhandname" id="pkHand"></div>
+          </div>
+          <div class="pkctrl">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div>
+                <div class="bslabel">Apuesta</div>
+                <div class="stepper">
+                  <button class="stpbtn" onclick="adjPK(-1)">−</button>
+                  <span class="stpval" id="pkBet">$10</span>
+                  <button class="stpbtn" onclick="adjPK(1)">+</button>
+                </div>
+              </div>
+              <div id="pkActions"><button class="btn btn-gold" onclick="pkDeal()">🃏 REPARTIR</button></div>
+            </div>
+            <div style="margin-top:4px">
+              <div class="bslabel" style="margin-bottom:6px">Tabla de pagos</div>
+              <div class="pktable2">
+                <div class="ptr"><span>Escalera Real</span><span class="ptmv">×250</span></div>
+                <div class="ptr"><span>Escalera Color</span><span class="ptmv">×50</span></div>
+                <div class="ptr"><span>Póker (4 iguales)</span><span class="ptmv">×25</span></div>
+                <div class="ptr"><span>Full House</span><span class="ptmv">×9</span></div>
+                <div class="ptr"><span>Color</span><span class="ptmv">×6</span></div>
+                <div class="ptr"><span>Escalera</span><span class="ptmv">×4</span></div>
+                <div class="ptr"><span>Trío</span><span class="ptmv">×3</span></div>
+                <div class="ptr"><span>Doble Par</span><span class="ptmv">×2</span></div>
+                <div class="ptr"><span>Par de Jacks+</span><span class="ptmv">×1</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- PANTALLA 6: DADOS -->
+      <!-- ========================================== -->
+      <div class="screen" id="sc-dice">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 10px;">
+          <button class="btn-back-lobby" onclick="go('lobby')">← Volver al Menú</button>
+        </div>
+        <div class="card-box">
+          <div class="chead">
+            <div class="lights"><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div></div>
+            <div class="ctitle">DADOS</div>
+            <div class="csub">2 dados · Apostá al resultado</div>
+          </div>
+          <div class="dicetable">
+            <div class="dicedisp">
+              <div class="die" id="die1">⚀</div>
+              <div style="font-size:28px;color:var(--txm)">+</div>
+              <div class="die" id="die2">⚀</div>
+            </div>
+            <div class="dicetotal" id="diceTotal">?</div>
+            <div class="dicemsg" id="diceMsg">Elegí tu apuesta y tirá los dados</div>
+            <div>
+              <div class="bslabel" style="margin-bottom:7px">Tipo de apuesta</div>
+              <div class="dicebets">
+                <button class="dbb" onclick="selDice(this,'high')">Alto (8–12)<br><span style="color:var(--txm);font-size:10px">Pago 1:1</span></button>
+                <button class="dbb" onclick="selDice(this,'low')">Bajo (2–6)<br><span style="color:var(--txm);font-size:10px">Pago 1:1</span></button>
+                <button class="dbb" onclick="selDice(this,'seven')">Exacto 7<br><span style="color:var(--txm);font-size:10px">Pago 4:1</span></button>
+                <button class="dbb" onclick="selDice(this,'even')">Par<br><span style="color:var(--txm);font-size:10px">Pago 1:1</span></button>
+                <button class="dbb" onclick="selDice(this,'odd')">Impar<br><span style="color:var(--txm);font-size:10px">Pago 1:1</span></button>
+                <button class="dbb" onclick="selDice(this,'double')">Dobles<br><span style="color:var(--txm);font-size:10px">Pago 5:1</span></button>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:10px">
+              <div>
+                <div class="bslabel">Apuesta</div>
+                <div class="stepper">
+                  <button class="stpbtn" onclick="adjDice(-1)">−</button>
+                  <span class="stpval" id="diceBet">$10</span>
+                  <button class="stpbtn" onclick="adjDice(1)">+</button>
+                </div>
+              </div>
+              <button class="btn btn-gold" id="diceRollBtn" onclick="rollDice()" style="flex:1;padding:11px">🎲 TIRAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- PANTALLA 7: BACCARAT -->
+      <!-- ========================================== -->
+      <div class="screen" id="sc-baccarat">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 10px;">
+          <button class="btn-back-lobby" onclick="go('lobby')">← Volver al Menú</button>
+        </div>
+        <div class="card-box">
+          <div class="chead">
+            <div class="lights"><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div><div class="lt"></div></div>
+            <div class="ctitle">BACCARAT</div>
+            <div class="csub">Punto · Banca · Empate</div>
+          </div>
+          <div class="bacctable">
+            <div class="baccside">
+              <div class="baccslabel">Banca</div>
+              <div class="bacccards" id="baccBanker"></div>
+              <div class="baccscore" id="baccBS">0</div>
+            </div>
+            <div class="baccvs">
+              <div style="font-size:24px">⚔️</div>
+              <div class="baccstatus" id="baccST">Elegí tu apuesta</div>
+            </div>
+            <div class="baccside">
+              <div class="baccslabel">Jugador</div>
+              <div class="bacccards" id="baccPlayer"></div>
+              <div class="baccscore" id="baccPS">0</div>
+            </div>
+          </div>
+          <div class="baccctrl">
+            <div class="bslabel">Apostá a:</div>
+            <div class="baccbets">
+              <button class="baccbb" id="baccBP" onclick="selBacc(this,'player')">Jugador<br><span style="font-size:10px;color:var(--txm)">Pago 1:1</span></button>
+              <button class="baccbb" id="baccBB" onclick="selBacc(this,'banker')">Banca<br><span style="font-size:10px;color:var(--txm)">Pago 0.95:1</span></button>
+              <button class="baccbb" id="baccBT" onclick="selBacc(this,'tie')">Empate<br><span style="font-size:10px;color:var(--txm)">Pago 8:1</span></button>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:10px">
+              <div>
+                <div class="bslabel">Apuesta</div>
+                <div class="stepper">
+                  <button class="stpbtn" onclick="adjBacc(-1)">−</button>
+                  <span class="stpval" id="baccBet">$10</span>
+                  <button class="stpbtn" onclick="adjBacc(1)">+</button>
+                </div>
+              </div>
+              <button class="btn btn-gold" id="baccDealBtn" onclick="baccDeal()" style="flex:1;padding:11px">🃏 REPARTIR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /area -->
+
+    <!-- PANEL DERECHO (PROMOCIONES) -->
+    <aside class="rpanel">
+      <div class="rptitle">Promociones</div>
+      <div class="promo" onclick="toast('🎁 ¡Bono Bienvenida activado! +$50,000')">
+        <div class="pico">🎁</div><div class="ptitle">Bono Bienvenida</div>
+        <div class="pdesc">100% hasta $50,000 en tu primer depósito</div>
+      </div>
+      <div class="promo" onclick="openModal('vip')">
+        <div class="pico">👑</div><div class="ptitle">Programa VIP</div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span style="font-family:'Playfair Display',serif;font-size:16px;color:var(--gold)">Casino Bulevard</span>
+    <div class="footer-socials">
+      <a class="footer-slink ig" href="https://www.instagram.com/casinoboulevardsalta/" target="_blank"><span>Instagram</span></a>
+      <a class="footer-slink fb" href="https://www.facebook.com/cainoboulevard/" target="_blank"><span>Facebook</span></a>
+    </div>
+  </footer>
+
+  <div class="toasts" id="toasts"></div>
+
+  <!-- ENLACE A TU JAVASCRIPT (Verifica la ruta) -->
+  <script src="../js/main.js"></script>
+</body>
+</html>
