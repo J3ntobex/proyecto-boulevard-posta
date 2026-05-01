@@ -84,6 +84,11 @@ function verifyAge(isAdult) {
     });
   }
 
+  function toggleMobileMenu() {
+    const navlinks = document.getElementById('navlinks');
+    navlinks.classList.toggle('open');
+  }
+
   // Re-wire tabs on load
   document.querySelectorAll('.tab').forEach((t,i) => {
     t.onclick = () => go(SCREENS[i]);

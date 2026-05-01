@@ -78,7 +78,8 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="logo" onclick="go('slots')">Casino <span>Bulevard</span></div>
-    <div class="navlinks">
+    <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+    <div class="navlinks" id="navlinks">
       <a id="nSlots" class="on" onclick="go('slots')" href="html/juegos.html">Slots</a>
       <a id="nRoul" onclick="go('roulette')">Ruleta</a>
       <a id="nBJ" onclick="go('blackjack')">Blackjack</a>
